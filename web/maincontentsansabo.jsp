@@ -24,7 +24,7 @@
                                     <th><b>Année</b></th> 
                                     <th><b>Wikipedia</b></th>
                                     <th><b>Piste d'instrument</b></th> 
-                                    <th><b>Ecouter</b></th>
+                                    <th><b>Acheter</b></th>
 
                                 </tr>  
                             </thead>
@@ -44,7 +44,7 @@
                                             ${p.nom} <br >
                                         </c:forEach>
                                     </td> 
-                                    <td><a href="http://www.perdu.com"><img src="play.png" width="25" height="25 alt="perdu.cm" title="ecouter"/> </a> </td>
+                                    <td></td>
                                 </tr>  
                             </c:forEach>   
                         </table>  
