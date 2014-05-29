@@ -48,6 +48,12 @@ public class Morceau implements Serializable {
         this.pistes = new HashSet();
     }
 
+    public Morceau(String titre, Artiste artiste) {
+        this.titre = titre;
+        this.artiste = artiste;
+        this.pistes = new HashSet();
+    }
+
     public int getId() {
         return id;
     }
@@ -112,8 +118,9 @@ public class Morceau implements Serializable {
     public void setPistes(Set<Piste> pistes) {
         this.pistes = pistes;
     }
-     public void addPiste(Piste p) {
+
+    public void addPiste(Piste p) {
         this.pistes.add(p);
     }
-    
+
 }

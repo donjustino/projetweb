@@ -6,6 +6,12 @@
 package musiques.gestionnaires;
 
 import artistes.modeles.Artiste;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,59 +27,58 @@ import pistes.modeles.Piste;
 @Stateless
 public class GestionnairesMusiques {
 
-    @PersistenceContext(unitName = "MusicStorePersistance")
+    @PersistenceContext(unitName = "WebPU")
     private EntityManager em;
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     public void CreationCatalogue() {
-        Artiste a = new Artiste("ACDC","http://fr.wikipedia.org/wiki/AC/DC");
-        Morceau m = new Morceau("Highway To hell", "1979", a);
-        
-        Piste piste1 = new Piste("Drums 2 Bass drum", 5, m);
-        Piste piste2 = new Piste("Drums 3 snare", 5, m);
-        Piste piste3 = new Piste("Drums 5 hi-hat cymbals", 5, m);
-        Piste piste4 = new Piste("Drums 6 hi-hat cymbals", 5, m);
-        Piste piste5 = new Piste("Drums 2 Bass drum", 5, m);
-        Piste piste6 = new Piste("Guitar 1 Malcolm", 5, m);
-        Piste piste7 = new Piste("Guitar 2 Angus", 5, m);
-        Piste piste8 = new Piste("Vocals 1 main", 5, m);
-        Piste piste9 = new Piste("Vocals 2 main", 5, m);
-        Piste piste10 = new Piste("Vocals 3 backing vocals guitar overdubs", 5, m);
-        Piste piste11 = new Piste("Vocals 4 backing vocals", 5, m);
-
-        em.persist(piste1);
-        em.persist(piste2);
-        em.persist(piste3);
-        em.persist(piste4);
-        em.persist(piste5);
-        em.persist(piste6);
-        em.persist(piste7);
-        em.persist(piste8);
-        em.persist(piste9);
-        em.persist(piste10);
-        em.persist(piste11);
-
-        a.addMorceau(m);
-        m.addPiste(piste1);
-        m.addPiste(piste2);
-        m.addPiste(piste3);
-        m.addPiste(piste4);
-        m.addPiste(piste5);
-        m.addPiste(piste6);
-        m.addPiste(piste7);
-        m.addPiste(piste8);
-        m.addPiste(piste9);
-        m.addPiste(piste10);
-        m.addPiste(piste11);
-        em.persist(m);
-        em.persist(a);
+        parse();
     }
+
+    public void parse() {
+        String titre;
+        ArrayList<Piste> morceaux = new ArrayList<Piste>();
+//        ArrayList<Instrument> instrument = new ArrayList<>();
+//          String nomInstru[];
+        boolean ifTitle = true;
+        titre = new String();
+        String artiste = new String();
+        try {
+            InputStream flux = new FileInputStream("C:\\Users\\Rudy\\Documents\\NetBeansProjects\\projetweb\\src\\java\\utils\\liste_m.txt");
+            InputStreamReader lecture = new InputStreamReader(flux);
+
+            BufferedReader buff = new BufferedReader(lecture);
+            String ligne = null;
+            Artiste a = null;
+            Morceau m = null;
+            Piste p;
+            while ((ligne = buff.readLine()) != null) {
+                if (ifTitle == true && !ligne.isEmpty()) {
+                    a = new Artiste(ligne.split(" - ")[0]);
+                    m = new Morceau(ligne.split(" - ")[1], a);
+                    em.persist(m);
+                    em.persist(a);
+                    ifTitle = false;
+                } else if (!ligne.isEmpty() && ifTitle == false) {
+                    p = new Piste(ligne, m);
+                    m.addPiste(p);
+                    em.persist(p);
+                } else if (ligne.isEmpty()) {
+                    ifTitle = true;
+                }
+            }
+            buff.close();
+
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
     public Collection<Morceau> listeDesMorceaux() {
         // Exécution d'une requête équivalente à un select *
         Query q = em.createQuery("select m from Morceau m");
         return q.getResultList();
     }
+
     public Collection<Morceau> listedesMorceauxDeTest() {
         // Exécution d'une requête équivalente à un select *
         Query q = em.createQuery("select m from Morceau m");

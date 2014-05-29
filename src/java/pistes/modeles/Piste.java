@@ -40,6 +40,11 @@ public class Piste implements Serializable {
         this.morceau = morceau;
     }
 
+    public Piste(String nom, Morceau morceau) {
+        this.nom = nom;
+        this.morceau = morceau;
+    }
+
     public int getId() {
         return id;
     }
@@ -91,8 +96,7 @@ public class Piste implements Serializable {
     public void setMorceau(Morceau morceau) {
         this.morceau = morceau;
     }
-    
-    
+
     @Override
     public String toString() {
         return "pistes.modeles.Piste[ id=" + id + " ]";

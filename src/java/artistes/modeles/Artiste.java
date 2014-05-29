@@ -50,6 +50,11 @@ public class Artiste implements Serializable {
         this.morceaux = new HashSet();
     }
 
+    public Artiste(String nom) {
+        this.nom = nom;
+        this.morceaux = new HashSet();
+    }
+
     public int getId() {
         return id;
     }

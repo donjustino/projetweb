@@ -26,7 +26,7 @@ import utilisateurs.modeles.Utilisateur;
 @Stateless
 public class GestionnaireUtilisateurs {
 
-    @PersistenceContext(unitName = "MusicStorePersistance")
+    @PersistenceContext(unitName = "WebPU")
     private EntityManager em;
     private static final long weekend = 60000; ///604800000;
     private static final long mois = 262974383000L;
@@ -58,14 +58,14 @@ public class GestionnaireUtilisateurs {
         u.setLogin(login);
         u.setPassword(password);
     }
-    
+
     public Collection<Utilisateur> getUtilisateur(String login) {
         Query q = em.createQuery("select u from Utilisateur u where u.login=:login");
         q.setParameter("login", login);
         return q.getResultList();
-        
+
     }
- 
+
     // SOLUTION POUR FAIRE LA RECHERCHE !!! //
     //    public Utilisateur chercherUtilisateurId(int id) {
     //        Utilisateur u = em.find(Utilisateur.class, id);
@@ -146,7 +146,7 @@ public class GestionnaireUtilisateurs {
     }
 
     public boolean checkTemps(String login) {
-         
+
         Query q = em.createQuery("select u from Utilisateur u where u.login=:login");
         q.setParameter("login", login);
         Utilisateur u = (Utilisateur) q.getSingleResult();
@@ -154,12 +154,12 @@ public class GestionnaireUtilisateurs {
         System.out.println("Type d'abonnement : " + u.getTypeabonnement());
         long tempsabo = giveAbonnement(u.getTypeabonnement());
         System.out.println("Durée d'abonnement : " + tempsabo);
-        if(tempsabo == 4){
-            System.out.println("Utilisateur à  vie"); 
+        if (tempsabo == 4) {
+            System.out.println("Utilisateur à  vie");
             return true;
         }
-        if(tempsabo == 0){
-            System.out.println("Utilisateur gratuit"); 
+        if (tempsabo == 0) {
+            System.out.println("Utilisateur gratuit");
             return false;
         }
         long temp = currentTimeMillis() - u.getJourinscrption();
@@ -168,12 +168,12 @@ public class GestionnaireUtilisateurs {
             System.out.println("Utilisateur avec abonnement OK ");
             return true;
         } else {
-             System.out.println("Utilisateur avec abonnement pas valide");
+            System.out.println("Utilisateur avec abonnement pas valide");
             return false;
         }
     }
-    
-    public long giveAbonnement(int typeabonnement){
+
+    public long giveAbonnement(int typeabonnement) {
         long temps = 0;
         switch (typeabonnement) {
             case 0:
@@ -192,19 +192,19 @@ public class GestionnaireUtilisateurs {
                 temps = avie;
                 break;
             default:
-               temps = 0;
+                temps = 0;
         }
         return temps;
     }
-    
-    public boolean checkAbonnement(String login){
-        if(checkTemps(login) == true){
+
+    public boolean checkAbonnement(String login) {
+        if (checkTemps(login) == true) {
             System.out.println("Utilisateur abo OK");
             return true;
-        }
-        else
+        } else {
             System.out.println("Utilisateur gratuit");
-            return false;
+        }
+        return false;
     }
 
     // Add business logic below. (Right-click in editor and choose
