@@ -19,7 +19,7 @@
          
         <label class="control-label" for="textinput">Bonjour, ${login} </label><br>
             <a href="ServletLogin?action=deconnexion">Déconnexion</a>
-            <a href="ServletUsers?action=creerUnUtilisateur">Gérer compte</a>
+            <a href="ServletUsers?action=modifiercompte">Gérer compte</a>
         
         <hr>
     </body>

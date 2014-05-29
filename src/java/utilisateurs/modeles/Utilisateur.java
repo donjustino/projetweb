@@ -42,11 +42,11 @@ public class Utilisateur implements Serializable {
         this.prenom = prenom;
     }
 
-    public String getTypeabonnement() {
+    public int getTypeabonnement() {
         return typeabonnement;
     }
 
-    public void setTypeabonnement(String typeabonnement) {
+    public void setTypeabonnement(int typeabonnement) {
         this.typeabonnement = typeabonnement;
     }
 
@@ -59,7 +59,7 @@ public class Utilisateur implements Serializable {
     }
     private String nom;
     private String prenom;
-    private String typeabonnement;
+    private int typeabonnement;
     private long jourinscrption;
 
 
@@ -85,7 +85,7 @@ public class Utilisateur implements Serializable {
         this.login = login;
         this.password = password;
     }
-     public Utilisateur(String login, String password,String nom,String prenom,String abonnement) {
+     public Utilisateur(String login, String password,String nom,String prenom,int abonnement) {
         this.login = login;
         this.password = password;
         this.nom = nom;
