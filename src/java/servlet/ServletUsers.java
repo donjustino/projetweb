@@ -54,7 +54,7 @@ public class ServletUsers extends HttpServlet {
             // LISTER LES UTILISATEURS
             if (action.equals("listerLesMusiques")) {
                 System.out.println(session.getAttribute("login"));
-                gestionnaireMusiques.CreationCatalogue();
+                //gestionnaireMusiques.CreationCatalogue();
                 Collection<Morceau> liste = gestionnaireMusiques.listeDesMorceaux();
                 request.setAttribute("listeDesMusiques", liste);
                 if (gestionnaireUtilisateurs.checkTemps(session.getAttribute("login").toString()) == true) {
@@ -72,25 +72,36 @@ public class ServletUsers extends HttpServlet {
 
                 System.out.println(session.getAttribute("login"));
                 String check = request.getParameter("abonnement");
+                System.out.println("Abonnement : " + check);
                 if (check == null) {
-                    Collection<Utilisateur> liste = gestionnaireUtilisateurs.getUtilisateur(session.getAttribute("login").toString());
-                    request.setAttribute("listeDesUtilisateurs", liste);
-                    forwardTo = "modificationcompte.jsp?action=listerLesUtilisateurs";
-                    message = "Liste des utilisateurs";
-                    getServletContext().getRequestDispatcher("/modificationcompte.jsp").forward(request, response);
-                } else {
-                    gestionnaireUtilisateurs.modifierAbonnement(session.getAttribute("login").toString(), request.getParameter("abonnement"));
-                    Collection<Morceau> liste = gestionnaireMusiques.listeDesMorceaux();
-                    request.setAttribute("listeDesMusiques", liste);
+                    String login = session.getAttribute("login").toString();
+                    System.out.println("Ouverture de la modification...");
+                    Collection<Utilisateur> liste = gestionnaireUtilisateurs.getUtilisateur(login);
+                    request.setAttribute("listeDesUsers", liste);
+                }
+                forwardTo = "modificationcompte.jsp";
+                message = "Liste des musiques";
+                getServletContext().getRequestDispatcher("/modificationcompte.jsp").forward(request, response);
+            } else if (action.equals("update")) {
+                gestionnaireUtilisateurs.modifierAbonnement(session.getAttribute("login").toString(), request.getParameter("abonnement"));
+
+                Collection<Morceau> liste = gestionnaireMusiques.listeDesMorceaux();
+                request.setAttribute("listeDesMusiques", liste);
+                if (gestionnaireUtilisateurs.checkTemps(session.getAttribute("login").toString()) == true) {
                     forwardTo = "main.jsp?action=listerLesMusiques";
                     message = "Liste des musiques";
                     getServletContext().getRequestDispatcher("/main.jsp").forward(request, response);
+                } else {
+                    forwardTo = "mainsansabo.jsp?action=listerLesMusiques";
+                    message = "Liste des musiques";
+                    getServletContext().getRequestDispatcher("/mainsansabo.jsp").forward(request, response);
                 }
-                //UTILISATEUR DE TEST
+
             }
         }
 
         RequestDispatcher dp = request.getRequestDispatcher(forwardTo + "&message=" + message);
+
         dp.forward(request, response);
         //Après un forward, plus rien ne peut être exécuté après !
     }

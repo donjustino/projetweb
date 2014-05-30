@@ -47,7 +47,7 @@
                             <!-- La ligne de titre du tableau des comptes -->  
                             <tbody>
                                 <tr>  
-                                    <th></th>
+                                    <th>Piste</th>
                                     <th><b>Artiste</b></th>  
                                     <th><b>Titre</b></th>  
                                     <th><b>Wikipedia</b></th>
@@ -59,8 +59,9 @@
                                         <td><div class="arrow"></div></td>
                                         <td>${u.artiste.nom}</td>  
                                         <td>${u.titre}</td>  
-                                        <td><a href="www.wikipedia.fr">Lien</a></td>
-                                        <td></td>
+                                        <td><a href="http://fr.wikipedia.org/wiki/${u.artiste.nom}" target=_blank>Lien</a></td>
+                                        <td><a href="ServletUsers?action=updateUtilisateur&id=${u.id}"><img src="caddie.jpg" width="25" height="25" title="acheter"/> </a>>
+
                                     </tr>  
                                     <tr>
                                         <td colspan="6">

@@ -1,9 +1,16 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>  
+<%-- 
+    Document   : modificationcompte
+    Created on : 30 mai 2014, 21:34:20
+    Author     : Justin
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html> 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
     "http://www.w3.org/TR/html4/loose.dtd">  
 
 <!-- Ne pas oublier cette ligne sinon tous les tags de la JSTL seront ignorés ! -->  
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>  
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html>
     <head>
@@ -46,7 +53,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="buttonValid"></label>
                         <div class="col-md-4">
-                            <input type="hidden" name="action" value="modifierCompte"/> 
+                            <input type="hidden" name="action" value="update"/> 
                             <button id="boutonValid" name="submit" class="btn btn-success">Modifier votre compte</button>
                         </div>
                     </div>
@@ -56,3 +63,4 @@
     </c:forEach>  
 </body>
 </html>
+

@@ -43,7 +43,7 @@ public class GestionnairesMusiques {
         titre = new String();
         String artiste = new String();
         try {
-            InputStream flux = new FileInputStream("C:\\Users\\Rudy\\Documents\\NetBeansProjects\\projetweb\\src\\java\\utils\\liste_m.txt");
+            InputStream flux = new FileInputStream("C:\\Users\\Justin\\Documents\\Netbeansproject\\Web\\src\\java\\utils\\liste_m.txt");
             InputStreamReader lecture = new InputStreamReader(flux);
 
             BufferedReader buff = new BufferedReader(lecture);
